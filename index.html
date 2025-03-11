@@ -28,6 +28,9 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .card h1 {
             color: #ff4e50;
@@ -37,7 +40,11 @@
             font-size: 18px;
             color: #444;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .show-message {
             opacity: 1;
@@ -83,21 +90,31 @@
 <body>
     <div class="card">
         <h1>Feliz Cumpleaños, Mi Amor</h1>
-        <p class="message">Eres la persona más especial en mi vida. Gracias por cada momento juntos. ¡Te amo!</p>
-        <button class="button" onclick="showMessage()">Presiona para ver el mensaje</button>
-        <button class="button" onclick="playMusic()">Reproducir nuestra canción</button>
-        <audio id="song" src="musica/Cumpleaños_feliz_con_Piano_y_Violin_precioso_k4MyopavOsE.mp3"></audio>
+        <p class="message" id="message">Presiona el botón para ver el mensaje</p>
+        <button class="button" onclick="nextMessage()">Ver siguiente mensaje</button>
     </div>
     <div class="hearts"></div>
 
     <script>
-        function showMessage() {
-            document.querySelector('.message').classList.add('show-message');
-        }
+        const messages = [
+            "Eres la persona más especial en mi vida. Gracias por cada momento juntos. ¡Te amo!",
+            "Cada día contigo es un regalo, pero hoy el regalo más grande es celebrar tu existencia. 💖",
+            "Eres la razón de mis sonrisas y mi felicidad. ¡Feliz cumpleaños, mi amor!",
+            "No hay palabras suficientes para describir cuánto significas para mí. ¡Que este día sea tan hermoso como tú!",
+            "Espero que este año te traiga tanto amor y felicidad como tú me das a mí cada día. 🎉"
+        ];
 
-        function playMusic() {
-            let song = document.getElementById('song');
-            song.play();
+        let messageIndex = 0;
+
+        function nextMessage() {
+            const messageElement = document.getElementById("message");
+            messageElement.classList.remove("show-message");
+            
+            setTimeout(() => {
+                messageElement.textContent = messages[messageIndex];
+                messageElement.classList.add("show-message");
+                messageIndex = (messageIndex + 1) % messages.length;
+            }, 500);
         }
 
         function createHeart() {
@@ -111,7 +128,7 @@
                 heart.remove();
             }, 5000);
         }
-        
+
         setInterval(createHeart, 500);
     </script>
 </body>
