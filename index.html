@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Cumpleaños, Amor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        .card {
+            position: relative;
+            background: white;
+            width: 350px;
+            height: 450px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+        }
+        .card h1 {
+            color: #ff4e50;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #444;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .show-message {
+            opacity: 1;
+        }
+        .button {
+            background: #ff4e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .button:hover {
+            background: #fc6c85;
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            bottom: -10px;
+            width: 20px;
+            height: 20px;
+            background: red;
+            clip-path: polygon(50% 0%, 100% 35%, 75% 100%, 50% 75%, 25% 100%, 0% 35%);
+            animation: floatUp 5s infinite ease-in-out;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Feliz Cumpleaños, Mi Amor</h1>
+        <p class="message">Eres la persona más especial en mi vida. Gracias por cada momento juntos. ¡Te amo!</p>
+        <button class="button" onclick="showMessage()">Presiona para ver el mensaje</button>
+        <button class="button" onclick="playMusic()">Reproducir nuestra canción</button>
+        <audio id="song" src="musica/tu-cancion.mp3"></audio>
+    </div>
+    <div class="hearts"></div>
+
+    <script>
+        function showMessage() {
+            document.querySelector('.message').classList.add('show-message');
+        }
+
+        function playMusic() {
+            let song = document.getElementById('song');
+            song.play();
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.querySelector('.hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
